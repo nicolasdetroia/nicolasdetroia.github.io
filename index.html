@@ -3,85 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nicolas DeTroia - Undergraduate Research</title>
+    <title>Nicolas DeTroia - Personal Portfolio</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Open Sans', sans-serif;
             margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            padding: 20px;
             background-color: #f0f0f0;
         }
-        .content {
-            max-width: 800px;
-            padding: 20px;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
             background-color: #fff;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             border-radius: 10px;
         }
         h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            color: #333;
+        }
+        .section-title {
             font-size: 2em;
             font-weight: 700;
             margin-bottom: 20px;
             text-transform: uppercase;
+            color: #444;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
         }
-        .job-title {
-            font-size: 1.5em;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .job-period {
-            font-size: 1.1em;
-            font-style: italic;
-            color: #666;
-        }
-        em {
-            display: block;
-            margin-top: 10px;
-            font-weight: 600;
-            font-size: 1.1em;
-            color: #333;
-        }
-        ul {
-            list-style-type: none;
-            padding-left: 0;
+        .project {
             margin: 20px 0;
-            text-align: left;
         }
-        ul li {
-            margin-bottom: 10px;
+        .project a {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .project a:hover {
+            text-decoration: underline;
+        }
+        .project-description, .youtube-video {
+            display: none;
+            margin-top: 10px;
+        }
+        .project-description p, .youtube-video iframe {
             font-size: 1.1em;
-            line-height: 1.6;
             color: #555;
         }
+        .toggle-button {
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #007bff;
+        }
         footer {
-            margin-top: 20px;
-            font-size: 0.9em;
+            margin-top: 40px;
+            font-size: 1em;
             color: #888;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="content">
-        <h1>Undergraduate Research</h1>
-        <div class="job-title">In Progress</div>
-        <div class="job-period">Collaborative</div>
-        <em>Key Responsibilities:</em>
-        <ul>
-            <li>Collecting and utilizing student income, financial aid, and regional economic data for analysis.</li>
-            <li>Coordinated task division, leveraging team strengths in data collection, analysis, and report writing.</li>
-            <li>Developing and managing project phases, ensuring timely completion of data gathering and presentation.</li>
-        </ul>
+    <div class="container">
+        <h1>Nicolas DeTroia Portfolio</h1>
+        
+        <!-- Personal Projects Section -->
+        <section>
+            <div class="section-title">Personal Projects</div>
+            
+            <!-- Example Project 1 -->
+            <div class="project">
+                <a href="https://projectlink.com" target="_blank">Portfolio Website Development</a>
+                <div class="toggle-button" onclick="toggleDescription('description1')">Show Description</div>
+                <div class="project-description" id="description1">
+                    <p>Developed a responsive personal portfolio using HTML, CSS, and JavaScript. This project demonstrates my skills in front-end web development and SEO optimization.</p>
+                </div>
+                <div class="toggle-button" onclick="toggleVideo('video1')">Show YouTube Video</div>
+                <div class="youtube-video" id="video1">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Example Project 2 -->
+            <div class="project">
+                <a href="https://secondprojectlink.com" target="_blank">Independent eBay Business</a>
+                <div class="toggle-button" onclick="toggleDescription('description2')">Show Description</div>
+                <div class="project-description" id="description2">
+                    <p>Managed an independent eBay business where I handled inventory, financial investments, and customer interactions, maintaining Top-Rated Seller status.</p>
+                </div>
+                <div class="toggle-button" onclick="toggleVideo('video2')">Show YouTube Video</div>
+                <div class="youtube-video" id="video2">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Undergraduate Research Section -->
+        <section>
+            <div class="section-title">Undergraduate Research (In Progress)</div>
+            <div class="project">
+                <div class="job-title">Research on Regional Economic Disparities</div>
+                <div class="toggle-button" onclick="toggleDescription('description3')">Show Details</div>
+                <div class="project-description" id="description3">
+                    <p>This research involves collecting and analyzing student income, financial aid, and regional economic data to identify disparities affecting students' financial well-being. The project is ongoing with an expected completion by the end of the academic year.</p>
+                </div>
+            </div>
+        </section>
+
         <footer>
-            Nicolas DeTroia | Economics & Computer Science | The College of New Jersey
+            Nicolas DeTroia | B.A Economics & Computer Science Minor | The College of New Jersey
         </footer>
     </div>
+
+    <script>
+        function toggleDescription(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+
+        function toggleVideo(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 </html>
