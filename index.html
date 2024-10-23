@@ -69,35 +69,6 @@
     <div class="container">
         <h1>Nicolas DeTroia - Portfolio</h1>
 
-        <!-- Personal Projects Section -->
-        <section>
-            <div class="section-title">Personal Projects</div>
-            
-            <div class="project">
-                <a href="https://www.nicolasdetroia.com" target="_blank">Portfolio Website Development</a>
-                <div class="toggle-button" onclick="toggleDescription('description1')">Show Description</div>
-                <div class="project-description" id="description1">
-                    <p>Developed a responsive personal portfolio using HTML, CSS, and JavaScript.</p>
-                </div>
-                <div class="toggle-button" onclick="toggleVideo('video1')">Show YouTube Video</div>
-                <div class="youtube-video" id="video1">
-                    <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <div class="project">
-                <a href="https://www.ebay.com" target="_blank">Independent eBay Business</a>
-                <div class="toggle-button" onclick="toggleDescription('description2')">Show Description</div>
-                <div class="project-description" id="description2">
-                    <p>Managed an independent eBay business where I handled inventory, financial investments, and customer interactions.</p>
-                </div>
-                <div class="toggle-button" onclick="toggleVideo('video2')">Show YouTube Video</div>
-                <div class="youtube-video" id="video2">
-                    <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </section>
-
         <!-- Undergraduate Research Section -->
         <section>
             <div class="section-title">Undergraduate Research (In Progress)</div>
@@ -117,11 +88,6 @@
 
     <script>
         function toggleDescription(id) {
-            var element = document.getElementById(id);
-            element.style.display = (element.style.display === "none" || element.style.display === "") ? "block" : "none";
-        }
-
-        function toggleVideo(id) {
             var element = document.getElementById(id);
             element.style.display = (element.style.display === "none" || element.style.display === "") ? "block" : "none";
         }
