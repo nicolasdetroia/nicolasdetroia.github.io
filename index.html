@@ -1,104 +1,150 @@
----
-layout: default
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicolas DeTroia - Resume</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 1in;
+            color: #222;
+        }
+        h1, h2, h3 {
+            margin: 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2em;
+            font-weight: 700;
+        }
+        .header .contact {
+            margin: 10px 0;
+        }
+        .header .contact a {
+            color: inherit;
+            text-decoration: none;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .job-title {
+            font-weight: 700;
+        }
+        .job-period {
+            float: right;
+            font-style: italic;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        .skills-list ul {
+            columns: 2;
+        }
+    </style>
+</head>
+<body>
 
-title: Nicolas DeTroia Portfolio
-
-description: Portfolio for Nicolas DeTroia
-
-author: Nicolas DeTroia
----
-
-<header id="header" class="promo">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
+    <!-- Header -->
+    <div class="header">
         <h1>Nicolas DeTroia</h1>
-        <p>Sophomore College Student studying Economics at The College of New Jersey</p>
-        <div class="subheading mb-5">
-            Trenton · New Jersey 08601 · +1(609)-955-0147 · <a href="mailto:ndetroia@gmail.com">ndetroia@gmail.com</a>
+        <div class="contact">
+            24 Woodlane Rd, Lawrenceville, NJ 08648, United States | +1 609-955-0147 | 
+            <i class="fa fa-envelope"></i> <a href="mailto:ndetroia@gmail.com">ndetroia@gmail.com</a> | 
+            <a href="http://www.nicolasdetroia.com">www.nicolasdetroia.com</a>
         </div>
-      </div>
     </div>
-  </div>
-</header>
 
-<section id="experience">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
+    <!-- Experience Section -->
+    <section>
         <h2>Experience</h2>
 
-        <div class="experience-item">
-          <h3>Crisis Intervention Apprentice</h3>
-          <p>Contact of Mercer County, NJ</p>
-          <p>Training in active listening and crisis intervention. Preparing for hotline shifts to provide real-time assistance to callers in need.</p>
-          <span class="text-primary">Sept 2024 - Present</span>
+        <div>
+            <span class="job-title">Crisis Intervention Apprentice</span>
+            <span class="job-period">Sep 2024 – Present</span><br>
+            <em>Contact of Mercer County, NJ</em>
+            <ul>
+                <li>Training in active listening and crisis intervention.</li>
+                <li>Preparing for hotline shifts to provide real-time assistance to callers in need.</li>
+            </ul>
         </div>
 
-        <div class="experience-item">
-          <h3>Retail Sales Associate</h3>
-          <p>Best Buy, Co.</p>
-          <p>Assisted customers with product inquiries and managed inventory. Developed skills in sales analysis and customer service.</p>
-          <span class="text-primary">Oct 2022 - Present</span>
+        <div>
+            <span class="job-title">Retail Sales Associate</span>
+            <span class="job-period">Oct 2022 – Present</span><br>
+            <em>Best Buy, Princeton, NJ</em>
+            <ul>
+                <li>Assisted customers with product inquiries and managed inventory.</li>
+                <li>Developed skills in sales analysis and customer service.</li>
+            </ul>
         </div>
 
-        <div class="experience-item">
-          <h3>Online Assistant Manager</h3>
-          <p>Independent eBay Business, NJ</p>
-          <p>Managed financial investments and increased revenue. Monitored performance to maintain Top-Rated Seller status.</p>
-          <span class="text-primary">June 2022 - Nov 2023</span>
+        <div>
+            <span class="job-title">Online Assistant Manager</span>
+            <span class="job-period">Jun 2022 – Nov 2023</span><br>
+            <em>Independent eBay Business, NJ</em>
+            <ul>
+                <li>Managed financial investments and increased revenue.</li>
+                <li>Monitored performance to maintain Top-Rated Seller status.</li>
+            </ul>
         </div>
 
-        <div class="experience-item">
-          <h3>Undergraduate Research</h3>
-          <p>Collaborative project on economic disparities affecting students, coordinating task division and managing data collection.</p>
-          <span class="text-primary">October 2024 - In Progress</span>
+        <div>
+            <span class="job-title">Undergraduate Research</span>
+            <span class="job-period">In Progress</span><br>
+            <em>Collaborative</em>
+            <ul>
+                <li>Collecting and utilizing student income, financial aid, and regional economic data for analysis.</li>
+                <li>Coordinated task division, leveraging team strengths in data collection, analysis, and report writing.</li>
+                <li>Developing and managing project phases, ensuring timely completion of data gathering and presentation.</li>
+            </ul>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="education">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2>Education</h2>
-
-        <div class="education-item">
-          <h3>The College of New Jersey, NJ</h3>
-          <p>B.A. Economics, Computer Science Minor</p>
-          <span class="text-primary">Expected Graduation: May 2027</span>
-        </div>
-
-        <div class="education-item">
-          <h3>Princeton High School</h3>
-          <p>High School Diploma</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div id="skills">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4">
+    <!-- Skills Section -->
+    <section class="skills-list">
         <h2>Skills</h2>
-        <p>Economics, Research, Data Analysis, Team Collaboration</p>
-      </div>
-    </div>
-  </div>
-</div>
+        <ul>
+            <li>Leadership & Team Management</li>
+            <li>Communication: Strong interpersonal and communication skills</li>
+            <li>Working Proficiency: Python, C++, R, SQL, HTML5, CSS, JS, LaTeX, Git</li>
+            <li>Problem-Solving & Adaptability</li>
+            <li>Customer Service</li>
+        </ul>
+    </section>
 
-<div id="social">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4">
-        <h2>Social Links</h2>
-        <a href="https://linkedin.com/in/nicolas-detroia-472683252" class="btn">LinkedIn</a>
-        <a href="https://github.com/nicolasdetroia" class="btn">GitHub</a>
-      </div>
-    </div>
-  </div>
-</div>
+    <!-- Education Section -->
+    <section>
+        <h2>Education</h2>
+        <div>
+            <span class="job-title">B.A. in Economics, Computer Science Minor</span>
+            <span class="job-period">Expected Graduation: May 2027</span><br>
+            <em>The College of New Jersey, NJ</em><br>
+            Activities: Economics Club, Entrepreneurship Club, Special Olympics Volunteer
+        </div>
+
+        <div>
+            <span class="job-title">High School Diploma</span><br>
+            <em>Princeton High School, NJ</em>
+        </div>
+    </section>
+
+</body>
+</html>
