@@ -7,14 +7,26 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
   </style>
 </head>
 <body class="bg-gray-50">
 
-  <!-- Include Header -->
-  <?php include('header.html'); ?>
+  <!-- Header -->
+  <header class="bg-white shadow-lg sticky top-0 z-50">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-bold text-gray-800">My Portfolio</h1>
+      <ul class="flex space-x-6">
+        <li><a href="#about" class="text-gray-600 hover:text-blue-500">About</a></li>
+        <li><a href="#projects" class="text-gray-600 hover:text-blue-500">Projects</a></li>
+        <li><a href="#contact" class="text-gray-600 hover:text-blue-500">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <!-- Hero Section -->
   <section class="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white py-20">
     <div class="container mx-auto text-center">
       <h2 class="text-4xl font-bold mb-4">Hi, I'm John Doe</h2>
@@ -25,22 +37,86 @@
     </div>
   </section>
 
-  <!-- Include Footer -->
-  <?php include('footer.html'); ?>
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8">About Me</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <img src="https://via.placeholder.com/500x400" alt="Profile" class="rounded-lg shadow-md">
+        <p class="text-gray-600">
+          I'm a web developer with a knack for crafting modern and visually appealing websites. With expertise in
+          front-end and a touch of back-end skills, I thrive on building user-focused experiences. Let's create
+          something amazing together!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8">My Projects</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Project 1 -->
+        <div class="rounded-lg shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x300" alt="Project 1" class="w-full">
+          <div class="p-4">
+            <h3 class="font-bold text-gray-800">Project 1</h3>
+            <p class="text-gray-600">An e-commerce website built using React.js.</p>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div class="rounded-lg shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x300" alt="Project 2" class="w-full">
+          <div class="p-4">
+            <h3 class="font-bold text-gray-800">Project 2</h3>
+            <p class="text-gray-600">A portfolio template built using Tailwind CSS.</p>
+          </div>
+        </div>
+        <!-- Project 3 -->
+        <div class="rounded-lg shadow-md overflow-hidden">
+          <img src="https://via.placeholder.com/400x300" alt="Project 3" class="w-full">
+          <div class="p-4">
+            <h3 class="font-bold text-gray-800">Project 3</h3>
+            <p class="text-gray-600">A blog platform built with Next.js and Firebase.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8">Get in Touch</h2>
+      <form action="#" method="POST" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <input type="text" placeholder="Name" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input type="email" placeholder="Email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <textarea placeholder="Message" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-6">
+    <p>&copy; 2024 John Doe. All Rights Reserved.</p>
+  </footer>
 
   <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script>
-  // Animate headings
-  gsap.from("h2", { duration: 1, y: -50, opacity: 0, ease: "power3.out" });
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    // Animate headings
+    gsap.from("h2", { duration: 1, y: -50, opacity: 0, ease: "power3.out" });
 
-  // Animate paragraphs
-  gsap.from("p", { duration: 1, y: 50, opacity: 0, delay: 0.5, ease: "power3.out" });
+    // Animate paragraphs
+    gsap.from("p", { duration: 1, y: 50, opacity: 0, delay: 0.5, ease: "power3.out" });
 
-  // Smooth fade-in for images
-  gsap.from("img", { duration: 1, scale: 0.9, opacity: 0, ease: "power3.out", stagger: 0.3 });
-</script>
-
+    // Smooth fade-in for images
+    gsap.from("img", { duration: 1, scale: 0.9, opacity: 0, ease: "power3.out", stagger: 0.3 });
+  </script>
 
 </body>
 </html>
