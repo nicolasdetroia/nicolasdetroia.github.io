@@ -3,114 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio</title>
+  <title>Portfolio - Home</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+    body { font-family: 'Inter', sans-serif; }
   </style>
 </head>
 <body class="bg-gray-50">
 
-  <!-- Header -->
-  <header class="bg-white shadow-lg sticky top-0 z-50">
-    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="text-2xl font-bold text-gray-800">My Portfolio</h1>
-      <ul class="flex space-x-6">
-        <li><a href="#about" class="text-gray-600 hover:text-blue-500">About</a></li>
-        <li><a href="#projects" class="text-gray-600 hover:text-blue-500">Projects</a></li>
-        <li><a href="#contact" class="text-gray-600 hover:text-blue-500">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- Include Header -->
+  <?php include('header.html'); ?>
 
-  <!-- Hero Section -->
   <section class="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white py-20">
     <div class="container mx-auto text-center">
       <h2 class="text-4xl font-bold mb-4">Hi, I'm John Doe</h2>
       <p class="text-xl">A passionate Web Developer bringing designs to life.</p>
       <button class="mt-6 px-6 py-2 bg-white text-blue-600 rounded-lg shadow hover:bg-gray-200">
-        Download Resume
+        Learn More About Me
       </button>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-gray-800 mb-8" data-aos="fade-up">About Me</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <img src="https://via.placeholder.com/500x400" alt="Profile" class="rounded-lg shadow-md" data-aos="fade-right">
-        <p class="text-gray-600" data-aos="fade-left">
-          I'm a web developer with a knack for crafting modern and visually appealing websites. With expertise in
-          front-end and a touch of back-end skills, I thrive on building user-focused experiences. Let's create
-          something amazing together!
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- Include Footer -->
+  <?php include('footer.html'); ?>
 
-  <!-- Projects Section -->
-  <section id="projects" class="py-20 bg-white">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-gray-800 mb-8" data-aos="fade-up">My Projects</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Project 1 -->
-        <div class="rounded-lg shadow-md overflow-hidden" data-aos="zoom-in">
-          <img src="https://via.placeholder.com/400x300" alt="Project 1" class="w-full">
-          <div class="p-4">
-            <h3 class="font-bold text-gray-800">Project 1</h3>
-            <p class="text-gray-600">An e-commerce website built using React.js.</p>
-          </div>
-        </div>
-        <!-- Project 2 -->
-        <div class="rounded-lg shadow-md overflow-hidden" data-aos="zoom-in">
-          <img src="https://via.placeholder.com/400x300" alt="Project 2" class="w-full">
-          <div class="p-4">
-            <h3 class="font-bold text-gray-800">Project 2</h3>
-            <p class="text-gray-600">A portfolio template built using Tailwind CSS.</p>
-          </div>
-        </div>
-        <!-- Project 3 -->
-        <div class="rounded-lg shadow-md overflow-hidden" data-aos="zoom-in">
-          <img src="https://via.placeholder.com/400x300" alt="Project 3" class="w-full">
-          <div class="p-4">
-            <h3 class="font-bold text-gray-800">Project 3</h3>
-            <p class="text-gray-600">A blog platform built with Next.js and Firebase.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-gray-800 mb-8" data-aos="fade-up">Get in Touch</h2>
-      <form action="#" method="POST" class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <input type="text" placeholder="Name" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <input type="email" placeholder="Email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <textarea placeholder="Message" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
-          Send Message
-        </button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white text-center py-6">
-    <p>&copy; 2024 John Doe. All Rights Reserved.</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
 </body>
 </html>
