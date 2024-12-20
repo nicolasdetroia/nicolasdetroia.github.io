@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Nicolas DeTroia</title>
+  <title>Portfolio - Nick DeTroia</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -20,23 +20,23 @@
 <body class="bg-gray-900 text-gray-200 font-sans">
 
   <!-- Header -->
-  <header class="bg-gray-800 sticky top-0 z-50 shadow-lg">
+  <header class="bg-gray-800 sticky top-0 z-50 shadow-xl">
     <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="text-2xl font-extrabold text-white">Nicolas DeTroia</h1>
+      <h1 class="text-2xl font-extrabold text-white">Nick DeTroia</h1>
       <ul class="flex space-x-8">
-        <li><a href="#about" class="text-gray-300 hover:text-white transition">About</a></li>
-        <li><a href="#projects" class="text-gray-300 hover:text-white transition">Experience</a></li>
-        <li><a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a></li>
+        <li><a href="#about" class="text-gray-300 hover:text-white transition duration-300">About</a></li>
+        <li><a href="#projects" class="text-gray-300 hover:text-white transition duration-300">Experience</a></li>
+        <li><a href="#contact" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-32 text-center text-white">
+  <section class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-32 text-center text-white">
     <div class="container mx-auto">
-      <h1 class="text-5xl font-extrabold mb-6">Hi, I'm Nicolas DeTroia (IN DEV)</h1>
-      <p class="text-lg mb-8">CS + Economics Student | Aspiring Analyst | Tech Enthusiast</p>
-      <a href="#projects" class="px-8 py-3 bg-white text-indigo-600 font-semibold rounded-lg shadow-lg hover:bg-gray-200 transition">
+      <h1 class="text-5xl font-extrabold mb-6 animate-fadeIn">Hi, I'm Nick DeTroia</h1>
+      <p class="text-lg mb-8 animate-fadeIn delay-200">Financial Economics + CS | Aspiring Analyst | Tech Enthusiast</p>
+      <a href="#projects" class="px-8 py-3 bg-white text-indigo-600 font-semibold rounded-lg shadow-lg hover:bg-gray-200 transition duration-300 animate-fadeIn delay-400">
         Explore My Projects
       </a>
     </div>
@@ -47,80 +47,76 @@
     <div class="container mx-auto px-6">
       <h2 class="text-3xl font-bold text-white mb-8">About Me</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <img src="https://via.placeholder.com/500x400" alt="Profile" class="rounded-lg shadow-lg">
+        <img src="https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile" class="rounded-lg shadow-lg">
         <p class="text-gray-400">
-         Motivated undergraduate student studying economics. My interests span a wide variety of fields, from pharmaceutical sales and UI/UX design to banking and artificial intelligence.
+            I am a motivated undergraduate student majoring in Economics and Computer Science with a passion for exploring diverse fields, including pharmaceutical sales, UI/UX design, banking, and artificial intelligence. My interdisciplinary interests drive me to innovate and solve complex challenges at the intersection of technology and business.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Projects-->
-<section id="projects" class="py-20 bg-gray-800">
-  <div class="container mx-auto px-6">
-    <h2 class="text-3xl font-bold text-white mb-8">Projects</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-      <!-- Project 1 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">Arise-Scaling</h3>
-        <p class="text-gray-400">Providing technical solutions and customer support at Arise Scaling since November 2024, focusing on IT infrastructure and scaling processes.</p>
-      </div>
-      <!-- Project 2 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">Accenture North America Project Simulation</h3>
-        <p class="text-gray-400">Simulated project management task involving Agile and Hybrid methodologies to deliver client-centric solutions.</p>
-      </div>
-      <!-- Project 3 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">Family Business Internship</h3>
-        <p class="text-gray-400">Streamlined the digitization and archival process of client images, ensuring efficient and accurate data delivery.</p>
-      </div>
-      <!-- Project 4 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">TikTok Usage Analysis</h3>
-        <p class="text-gray-400">Analyzed patterns of TikTok usage among students for an academic research project, highlighting its impact on productivity and academic performance.</p>
-      </div>
-      <!-- Project 5 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">Portfolio Website</h3>
-        <p class="text-gray-400">Built a personal portfolio website using HTML, CSS, Tailwind CSS, and JavaScript to showcase projects and experiences.</p>
-      </div>
-      <!-- Project 6 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">E-Commerce Platform</h3>
-        <p class="text-gray-400">Developed a React.js and Firebase-based e-commerce platform integrating user authentication and payment processing.</p>
-      </div>
-      <!-- Project 7 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">Data Visualization Dashboard</h3>
-        <p class="text-gray-400">Created a Python-based data visualization dashboard using Pandas and Matplotlib to analyze financial datasets.</p>
-      </div>
-      <!-- Project 8 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">Blog Platform</h3>
-        <p class="text-gray-400">Built a Next.js and Firebase-powered blogging platform with CRUD functionality and secure authentication.</p>
-      </div>
-      <!-- Project 9 -->
-      <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-        <h3 class="text-xl font-bold text-white mb-2">Trade Policy and Income Inequality Research</h3>
-        <p class="text-gray-400">Explored the effects of trade policies on income inequality in developing economies, combining academic research and data analysis skills.</p>
+  <!-- Projects Section -->
+  <section id="projects" class="py-20 bg-gray-800">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-8">Projects</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105">
+          <h3 class="text-xl font-bold text-white mb-2">Arise-Scaling</h3>
+          <p class="text-gray-400">Providing technical solutions and customer support at Arise Scaling since April 2020, focusing on IT infrastructure and scaling processes.</p>
+          <a href="https://arisescaling.shop" target="_blank" class="text-indigo-400 hover:text-indigo-300 mt-4 inline-block transition duration-300">
+            Arise Scaling  Shop
+          </a>
+        </div>
+        <!--<div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105">
+          <h3 class="text-xl font-bold text-white mb-2">Accenture Project Simulation</h3>
+          <p class="text-gray-400">Simulated project management task involving Agile and Hybrid methodologies to deliver client-centric solutions.</p>
+        </div>
+        <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105">
+          <h3 class="text-xl font-bold text-white mb-2">Family Business Internship</h3>
+          <p class="text-gray-400">Streamlined the digitization and archival process of client images, ensuring efficient and accurate data delivery.</p>
+        </div>
+    --> 
+    <div class="mt-6 bg-gray-800 p-4 rounded-lg shadow-inner">
+        <h4 class="text-white font-bold text-lg mb-4">Arise Scaling Reviews</h4>
+        <div class="space-y-4">
+          <!-- Review 1 -->
+          <div>
+            <p class="text-gray-400 italic">"Nick provided exceptional IT support, resolving scaling issues quickly and effectively."</p>
+            <p class="text-sm text-gray-500 mt-2">- N/A </p>
+          </div>
+          <!-- Review 2 -->
+          <div>
+            <p class="text-gray-400 italic">"His attention to detail and technical knowledge were instrumental in our project’s success."</p>
+            <p class="text-sm text-gray-500 mt-2">- N/A </p>
+          </div>
+          <!-- Review 3 -->
+          <div>
+            <p class="text-gray-400 italic">"A highly reliable and innovative team member. Highly recommend."</p>
+            <p class="text-sm text-gray-500 mt-2">- N/A </p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+    
+        
+        <!-- Add more project cards as needed NO-->
+      </div>
+    </div>
+  </section>
 
+  
 
   <!-- Contact Section -->
   <section id="contact" class="py-20 bg-gray-900">
     <div class="container mx-auto px-6">
       <h2 class="text-3xl font-bold text-white mb-8">Get in Touch</h2>
-      <form action="#" method="POST" class="bg-gray-800 rounded-lg shadow-lg p-6 space-y-6">
+      <form class="bg-gray-800 rounded-lg shadow-lg p-6 space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <input type="text" placeholder="Name" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
           <input type="email" placeholder="Email" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
         </div>
         <textarea placeholder="Message" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-        <button type="submit" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition">
+        <button type="submit" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition duration-300">
           Send Message
         </button>
       </form>
@@ -134,18 +130,21 @@
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script>
-    // Animate hero section
-    gsap.from("h1", { duration: 1, y: -50, opacity: 0, ease: "power3.out" });
-    gsap.from("p", { duration: 1, y: 50, opacity: 0, delay: 0.5, ease: "power3.out" });
+    gsap.registerPlugin(ScrollTrigger);
 
-    // Animate sections on scroll
+    gsap.from("h1", { duration: 1.2, y: -50, opacity: 0, ease: "power3.out" });
+    gsap.from("p", { duration: 1, y: 50, opacity: 0, delay: 0.3, ease: "power3.out" });
     gsap.utils.toArray("section").forEach(section => {
       gsap.from(section, {
-        scrollTrigger: section,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+        },
         opacity: 0,
         y: 50,
-        duration: 1,
+        duration: 1.2,
         ease: "power3.out"
       });
     });
