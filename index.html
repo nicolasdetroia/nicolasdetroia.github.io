@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio - Nic DeTroia</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -12,120 +13,163 @@
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
           },
+          animation: {
+            'gradient': 'gradient 8s linear infinite',
+          },
+          keyframes: {
+            gradient: {
+              '0%, 100%': {
+                'background-size': '200% 200%',
+                'background-position': 'left center'
+              },
+              '50%': {
+                'background-size': '200% 200%',
+                'background-position': 'right center'
+              }
+            }
+          }
         },
       },
     };
   </script>
 </head>
-<body class="bg-gray-900 text-gray-200 font-sans">
+<body class="bg-black text-gray-200 font-sans">
 
   <!-- Header -->
-  <header class="bg-gray-800 sticky top-0 z-50 shadow-xl">
-    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="text-2xl font-extrabold text-white">Nic DeTroia</h1>
+  <header class="backdrop-blur-md bg-black/30 sticky top-0 z-50">
+    <nav class="container mx-auto flex justify-between items-center py-6 px-6">
+      <h1 class="text-2xl font-black bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">Nic DeTroia</h1>
       <ul class="flex space-x-8">
-        <li><a href="#about" class="text-gray-300 hover:text-white transition duration-300">About</a></li>
-        <li><a href="#projects" class="text-gray-300 hover:text-white transition duration-300">Experience</a></li>
-        <li><a href="#contact" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+        <li><a href="#about" class="relative text-gray-300 hover:text-white transition-colors duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-indigo-500 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">About</a></li>
+        <li><a href="#projects" class="relative text-gray-300 hover:text-white transition-colors duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-indigo-500 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Experience</a></li>
+        <li><a href="#contact" class="relative text-gray-300 hover:text-white transition-colors duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-indigo-500 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-32 text-center text-white">
-    <div class="container mx-auto">
-      <h1 class="text-5xl font-extrabold mb-6 animate-fadeIn">Hi, I'm Nic DeTroia</h1>
-      <p class="text-lg mb-8 animate-fadeIn delay-200">Financial Economics + CS | Aspiring Analyst | Tech Enthusiast</p>
-      <a href="#projects" class="px-8 py-3 bg-white text-indigo-600 font-semibold rounded-lg shadow-lg hover:bg-gray-200 transition duration-300 animate-fadeIn delay-400">
-        Explore My Projects
-      </a>
+  <section class="min-h-screen flex items-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(99,102,241,0.2),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(167,139,250,0.2),transparent_50%)]"></div>
+    <div class="container mx-auto px-6 py-32 relative z-10">
+      <div class="max-w-3xl">
+        <h1 class="text-7xl font-black mb-6 leading-tight">
+          <span class="block bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text animate-gradient">Hi, I'm Nic DeTroia</span>
+        </h1>
+        <p class="text-xl text-gray-400 mb-12">Financial Economics + CS | Aspiring Analyst | Tech Enthusiast</p>
+        <div class="flex space-x-6">
+          <a href="#projects" class="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/50 transition duration-300 transform hover:-translate-y-1">
+            View My Work
+          </a>
+          <a href="#contact" class="px-8 py-4 border border-gray-700 text-white font-semibold rounded-lg hover:bg-gray-800/50 transition duration-300 transform hover:-translate-y-1">
+            Get in Touch
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="py-20 bg-gray-900">
+  <section id="about" class="py-32 relative">
     <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-white mb-8">About Me</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <img src="https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile" class="rounded-lg shadow-lg">
-        <p class="text-gray-400">
+      <h2 class="text-4xl font-bold mb-16 bg-gradient-to-r from-indigo-500 to-purple-500 text-transparent bg-clip-text">About Me</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+          <img src="https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+               alt="Profile" 
+               class="relative rounded-lg shadow-2xl">
+        </div>
+        <div class="space-y-6">
+          <p class="text-lg text-gray-400 leading-relaxed">
             I am a motivated undergraduate student majoring in Economics and Computer Science with a passion for exploring diverse fields, including pharmaceutical sales, UI/UX design, banking, and artificial intelligence. My interdisciplinary interests drive me to innovate and solve complex challenges at the intersection of technology and business.
-        </p>
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <span class="px-4 py-2 bg-gray-800 rounded-full text-sm font-medium">Economics</span>
+            <span class="px-4 py-2 bg-gray-800 rounded-full text-sm font-medium">Computer Science</span>
+            <span class="px-4 py-2 bg-gray-800 rounded-full text-sm font-medium">UI/UX Design</span>
+            <span class="px-4 py-2 bg-gray-800 rounded-full text-sm font-medium">AI</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="py-20 bg-gray-800">
+  <section id="projects" class="py-32 bg-gray-900/50">
     <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-white mb-8">Projects</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105">
-          <h3 class="text-xl font-bold text-white mb-2">Arise-Scaling</h3>
-          <p class="text-gray-400">Providing technical solutions and customer support at Arise Scaling since April 2020, focusing on IT infrastructure and scaling processes.</p>
-          <a href="https://arisescaling.shop" target="_blank" class="text-indigo-400 hover:text-indigo-300 mt-4 inline-block transition duration-300">
-            Arise Scaling  Shop
-          </a>
-        </div>
-        <!--<div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105">
-          <h3 class="text-xl font-bold text-white mb-2">Accenture Project Simulation</h3>
-          <p class="text-gray-400">Simulated project management task involving Agile and Hybrid methodologies to deliver client-centric solutions.</p>
-        </div>
-        <div class="bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105">
-          <h3 class="text-xl font-bold text-white mb-2">Family Business Internship</h3>
-          <p class="text-gray-400">Streamlined the digitization and archival process of client images, ensuring efficient and accurate data delivery.</p>
-        </div>
-    --> 
-    <div class="mt-6 bg-gray-800 p-4 rounded-lg shadow-inner">
-        <h4 class="text-white font-bold text-lg mb-4">Arise Scaling Reviews</h4>
-        <div class="space-y-4">
-          <!-- Review 1 -->
-          <div>
-            <p class="text-gray-400 italic">"Nick provided exceptional IT support, resolving scaling issues quickly and effectively."</p>
-            <p class="text-sm text-gray-500 mt-2">- N/A </p>
-          </div>
-          <!-- Review 2 -->
-          <div>
-            <p class="text-gray-400 italic">"His attention to detail and technical knowledge were instrumental in our project’s success."</p>
-            <p class="text-sm text-gray-500 mt-2">- N/A </p>
-          </div>
-          <!-- Review 3 -->
-          <div>
-            <p class="text-gray-400 italic">"A highly reliable and innovative team member. Highly recommend."</p>
-            <p class="text-sm text-gray-500 mt-2">- N/A </p>
+      <h2 class="text-4xl font-bold mb-16 bg-gradient-to-r from-indigo-500 to-purple-500 text-transparent bg-clip-text">Experience</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+          <div class="relative bg-gray-800 rounded-xl p-8 hover:transform hover:-translate-y-2 transition duration-300">
+            <h3 class="text-2xl font-bold text-white mb-4">Arise-Scaling</h3>
+            <p class="text-gray-400 mb-6">Providing technical solutions and customer support at Arise Scaling since April 2020, focusing on IT infrastructure and scaling processes.</p>
+            <a href="https://arisescaling.shop" target="_blank" 
+               class="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition duration-300">
+              Visit Website
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
           </div>
         </div>
-      </div>
-    </div>
-    
-        
-        <!-- Add more project cards as needed NO-->
+
+        <!-- Reviews Section -->
+        <div class="md:col-span-2 relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur opacity-25"></div>
+          <div class="relative bg-gray-800 rounded-xl p-8">
+            <h4 class="text-2xl font-bold text-white mb-8">Client Testimonials</h4>
+            <div class="grid gap-6">
+              <div class="bg-gray-900/50 p-6 rounded-lg backdrop-blur-sm">
+                <p class="text-gray-300 italic">"Nick provided exceptional IT support, resolving scaling issues quickly and effectively."</p>
+                <p class="text-sm text-gray-500 mt-4">- Anonymous</p>
+              </div>
+              <div class="bg-gray-900/50 p-6 rounded-lg backdrop-blur-sm">
+                <p class="text-gray-300 italic">"His attention to detail and technical knowledge were instrumental in our project's success."</p>
+                <p class="text-sm text-gray-500 mt-4">- Anonymous</p>
+              </div>
+              <div class="bg-gray-900/50 p-6 rounded-lg backdrop-blur-sm">
+                <p class="text-gray-300 italic">"A highly reliable and innovative team member. Highly recommend."</p>
+                <p class="text-sm text-gray-500 mt-4">- Anonymous</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  
-
   <!-- Contact Section -->
-  <section id="contact" class="py-20 bg-gray-900">
+  <section id="contact" class="py-32">
     <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-white mb-8">Get in Touch</h2>
-      <form class="bg-gray-800 rounded-lg shadow-lg p-6 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <input type="text" placeholder="Name" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-          <input type="email" placeholder="Email" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <h2 class="text-4xl font-bold mb-16 bg-gradient-to-r from-indigo-500 to-purple-500 text-transparent bg-clip-text">Get in Touch</h2>
+      <div class="max-w-2xl mx-auto">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+          <form class="relative bg-gray-800 rounded-xl p-8 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input type="text" placeholder="Name" 
+                     class="w-full px-6 py-4 bg-gray-900/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 backdrop-blur-sm">
+              <input type="email" placeholder="Email" 
+                     class="w-full px-6 py-4 bg-gray-900/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 backdrop-blur-sm">
+            </div>
+            <textarea placeholder="Message" rows="6"
+                      class="w-full px-6 py-4 bg-gray-900/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 backdrop-blur-sm"></textarea>
+            <button type="submit" 
+                    class="w-full px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/50 transition duration-300 transform hover:-translate-y-1">
+              Send Message
+            </button>
+          </form>
         </div>
-        <textarea placeholder="Message" class="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-        <button type="submit" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition duration-300">
-          Send Message
-        </button>
-      </form>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-gray-400 py-6 text-center">
-    <p>&copy; 2024 Nicolas DeTroia. All Rights Reserved.</p>
+  <footer class="py-8 border-t border-gray-800">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-500">&copy; 2024 Nicolas DeTroia. All Rights Reserved.</p>
+    </div>
   </footer>
 
   <!-- Scripts -->
@@ -134,21 +178,45 @@
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.from("h1", { duration: 1.2, y: -50, opacity: 0, ease: "power3.out" });
-    gsap.from("p", { duration: 1, y: 50, opacity: 0, delay: 0.3, ease: "power3.out" });
-    gsap.utils.toArray("section").forEach(section => {
-      gsap.from(section, {
+    // Hero animations
+    gsap.from("section:first-child h1", { 
+      duration: 1.2, 
+      y: 100, 
+      opacity: 0, 
+      ease: "power4.out" 
+    });
+    
+    gsap.from("section:first-child p", { 
+      duration: 1, 
+      y: 50, 
+      opacity: 0, 
+      delay: 0.3, 
+      ease: "power3.out" 
+    });
+
+    gsap.from("section:first-child a", { 
+      duration: 0.8, 
+      y: 30, 
+      opacity: 0, 
+      delay: 0.6, 
+      ease: "power3.out",
+      stagger: 0.2
+    });
+
+    // Scroll animations
+    gsap.utils.toArray("section:not(:first-child)").forEach(section => {
+      gsap.from(section.children, {
         scrollTrigger: {
           trigger: section,
           start: "top 80%",
         },
-        opacity: 0,
         y: 50,
-        duration: 1.2,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
         ease: "power3.out"
       });
     });
   </script>
-
 </body>
-</html>
+</html> 
