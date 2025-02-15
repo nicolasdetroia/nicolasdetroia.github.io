@@ -1,44 +1,181 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+<!DOCTYPE html>
+<html lang="en">
 
-export default function Portfolio() {
-  return (
-    <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center p-6">
-      <motion.h1
-        className="text-4xl font-bold mt-10"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        Hi, I'm [Your Name]
-      </motion.h1>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nic DeTroia - Business Economics & CS Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            'accent': '#3B82F6',
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'float': 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+</head>
 
-      <p className="text-lg text-gray-400 mt-4">Software Developer | Tech Enthusiast</p>
+<body class="bg-black text-white font-sans">
+  <!-- Header -->
+  <header class="backdrop-blur-md bg-black/30 sticky top-0 z-50">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-black bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">Nic DeTroia</h1>
+      <ul class="flex space-x-8">
+        <li><a href="#about" class="relative text-gray-300 hover:text-white transition-colors duration-300">About</a></li>
+        <li><a href="#skills" class="relative text-gray-300 hover:text-white transition-colors duration-300">Skills</a></li>
+        <li><a href="#research" class="relative text-gray-300 hover:text-white transition-colors duration-300">Research</a></li>
+        <li><a href="#projects" class="relative text-gray-300 hover:text-white transition-colors duration-300">Projects</a></li>
+        <li><a href="#contact" class="relative text-gray-300 hover:text-white transition-colors duration-300">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-      <div className="mt-6 flex space-x-4">
-        <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
-          <FaGithub className="text-2xl hover:text-gray-400" />
-        </a>
-        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
-          <FaLinkedin className="text-2xl hover:text-gray-400" />
-        </a>
-        <a href="mailto:youremail@example.com">
-          <FaEnvelope className="text-2xl hover:text-gray-400" />
-        </a>
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
+    <div class="container mx-auto px-6 py-32 relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-accent mb-4 font-semibold animate-fade-in">Welcome to my portfolio</p>
+        <h1 class="text-7xl font-black mb-6 leading-tight animate-fade-in">Exploring the Intersection of <span class="bg-gradient-to-r from-white to-accent bg-clip-text text-transparent">Technology & Economics</span></h1>
+        <p class="text-xl text-gray-400 mb-12 animate-fade-in">Merging Business Economics expertise with Computer Science innovation to create impactful solutions</p>
+        <div class="flex space-x-6 animate-fade-in">
+          <a href="#projects" class="px-8 py-4 bg-accent text-white font-semibold rounded-lg shadow-lg hover:bg-accent/90 transition duration-300 transform hover:-translate-y-1">
+            View My Projects
+          </a>
+          <a href="#contact" class="px-8 py-4 border border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-white transition duration-300 transform hover:-translate-y-1">
+            Get in Touch
+          </a>
+        </div>
       </div>
-
-      <motion.section
-        className="mt-12 w-full max-w-2xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <h2 className="text-2xl font-semibold">About Me</h2>
-        <p className="text-gray-300 mt-2">
-          I am a passionate developer specializing in modern web technologies, 
-          building interactive and user-friendly applications.
-        </p>
-      </motion.section>
     </div>
-  );
-}
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-32 relative">
+    <div class="container mx-auto px-6">
+      <div class="flex items-center gap-2 mb-16">
+        <div class="h-1 w-12 bg-accent"></div>
+        <h2 class="text-4xl font-bold">About Me</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div class="relative group animate-float">
+          <div class="absolute -inset-1 bg-accent rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+          <img src="/api/placeholder/600/400" alt="Profile" class="relative rounded-lg shadow-2xl object-cover">
+        </div>
+        <div class="space-y-6">
+          <p class="text-lg text-gray-400 leading-relaxed">
+            I am currently an undergraduate student at the intersection of Business Economics and Computer Science. I thrive in tackling challenges through analytical approaches and technological innovations.
+          </p>
+          <ul class="space-y-4 text-gray-400">
+            <li>Quantitative Analysis & Economic Modeling</li>
+            <li>Software Development & System Architecture</li>
+            <li>Machine Learning & AI Applications</li>
+            <li>Financial Markets & Investment Strategies</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Section -->
+  <section id="research" class="py-32 bg-zinc-900">
+    <div class="container mx-auto px-6">
+      <div class="flex items-center gap-2 mb-16">
+        <div class="h-1 w-12 bg-accent"></div>
+        <h2 class="text-4xl font-bold">Research</h2>
+      </div>
+      <div class="space-y-12">
+        <!-- Add your research papers or relevant work here -->
+        <div>
+          <h3 class="text-xl font-bold text-gray-300">Research on Economic Modeling</h3>
+          <p class="text-gray-400">A brief description of the research project, its objectives, and outcomes.</p>
+          <a href="#" class="text-accent hover:underline">Read More</a>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-300">Machine Learning in Financial Markets</h3>
+          <p class="text-gray-400">Exploring the use of ML techniques for predictive analytics in stock market trends.</p>
+          <a href="#" class="text-accent hover:underline">Read More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-32">
+    <div class="container mx-auto px-6">
+      <div class="flex items-center gap-2 mb-16">
+        <div class="h-1 w-12 bg-accent"></div>
+        <h2 class="text-4xl font-bold">Projects</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Example Project 1 -->
+        <div class="bg-black rounded-xl p-6 border border-gray-800">
+          <h3 class="text-xl font-bold text-gray-300">Data Analysis Tool</h3>
+          <p class="text-gray-400">A Python-based tool designed for advanced data visualization and statistical analysis.</p>
+          <a href="#" class="text-accent hover:underline">View Project</a>
+        </div>
+        <!-- Add more projects here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-32 bg-zinc-900">
+    <div class="container mx-auto px-6">
+      <div class="flex items-center gap-2 mb-16">
+        <div class="h-1 w-12 bg-accent"></div>
+        <h2 class="text-4xl font-bold">Contact Me</h2>
+      </div>
+      <form class="space-y-6 max-w-lg mx-auto">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
+          <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:ring-accent focus:border-accent" required>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-400">Email</label>
+          <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:ring-accent focus:border-accent" required>
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-400">Message</label>
+          <textarea id="message" name="message" rows="5" class="mt-1 block w-full px-4 py-3 bg-black border border-gray-800 rounded-lg text-white focus:ring-accent focus:border-accent" required></textarea>
+        </div>
+        <div>
+          <button type="submit" class="w-full px-8 py-4 bg-accent text-white font-semibold rounded-lg shadow-lg hover:bg-accent/90 transition duration-300 transform hover:-translate-y-1">
+            Send Message
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-zinc-900">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-400">&copy; 2025 Nic DeTroia. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+
+</html>
