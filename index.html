@@ -45,6 +45,7 @@
         <li><a href="#skills" class="relative text-gray-300 hover:text-white transition-colors duration-300">Skills</a></li>
         <li><a href="#research" class="relative text-gray-300 hover:text-white transition-colors duration-300">Research</a></li>
         <li><a href="#projects" class="relative text-gray-300 hover:text-white transition-colors duration-300">Projects</a></li>
+        <li><a href="#work" class="relative text-gray-300 hover:text-white transition-colors duration-300">Work</a></li>
         <li><a href="#contact" class="relative text-gray-300 hover:text-white transition-colors duration-300">Contact</a></li>
       </ul>
     </nav>
@@ -123,15 +124,17 @@
         <div class="h-1 w-12 bg-accent"></div>
         <h2 class="text-4xl font-bold">Projects</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Example Project 1 -->
-        <div class="bg-black rounded-xl p-6 border border-gray-800">
-          <h3 class="text-xl font-bold text-gray-300">Data Analysis Tool</h3>
-          <p class="text-gray-400">A Python-based tool designed for advanced data visualization and statistical analysis.</p>
-          <a href="#" class="text-accent hover:underline">View Project</a>
-        </div>
-        <!-- Add more projects here -->
+      <div id="projects-container"></div>
+    </div>
+  </section>
+  <!-- Work Section -->
+  <section id="work" class="py-32 bg-zinc-900">
+    <div class="container mx-auto px-6">
+      <div class="flex items-center gap-2 mb-16">
+        <div class="h-1 w-12 bg-accent"></div>
+        <h2 class="text-4xl font-bold">Work</h2>
       </div>
+      <div id="work-container"></div>
     </div>
   </section>
   <!-- Contact Section -->
@@ -168,5 +171,15 @@
       <p class="text-gray-400">&copy; 2025 Nic DeTroia. All rights reserved.</p>
     </div>
   </footer>
+  <script type="module">
+    import ProjectsPage from './components/ProjectsPage.js';
+    import WorkPage from './components/WorkPage.js';
+
+    const projectsContainer = document.getElementById('projects-container');
+    const workContainer = document.getElementById('work-container');
+
+    projectsContainer.innerHTML = ProjectsPage();
+    workContainer.innerHTML = WorkPage();
+  </script>
 </body>
 </html>
