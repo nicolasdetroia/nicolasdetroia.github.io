@@ -3,15 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Black Screen</title>
+  <title>Blue Screen of Death</title>
   <style>
     body {
-      background-color: #000;
+      background-color: #0000FF; /* Blue background */
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
       height: 100vh;
       margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 600px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .error-code {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: yellow;
     }
   </style>
 </head>
 <body>
+
+  <div class="container">
+    <h1>STOP: SYSTEM ERROR</h1>
+    <p class="error-code">0x000000EF: CRITICAL_SYSTEM_FAILURE</p>
+    <p>The system has encountered an error and needs to shut down. Please restart your computer.</p>
+    <p>If you need help, contact your system administrator.</p>
+  </div>
+
 </body>
 </html>
