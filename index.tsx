@@ -64,13 +64,15 @@
 <body>
 
   <div class="container">
-    <h1>Website</h1>
+    <h1>Nicolas DeTroia Website</h1>
     <p class="funny">"404: Error."</p>
 
     <div class="links">
       <p>Check out these links:</p>
       <a href="https://youtu.be/GI99x06IuSQ?si=mLAEyv59KhbtCEcM" target="_blank">Video 1</a>
       <a href="https://youtu.be/ItS4unALGdw?si=t_0Hbrkd9YPxb1sg" target="_blank">Video 2</a>
+      <a href="https://www.youtube.com/watch?v=8FVKyfDRjII" target="_blank">Video 3</a>
+      
     </div>
   </div>
 
