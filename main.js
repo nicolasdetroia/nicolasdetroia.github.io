@@ -1,17 +1,21 @@
-// Three.js Scene Setup
-let scene, camera, renderer, particles, particleLayers = [], lines;
-let mouseX = 0;
-let mouseY = 0;
-let targetX = 0;
-let targetY = 0;
+// === THREE.JS SCENE CONFIGURATION ===
+
+let scene, camera, renderer, lines;
+let particleLayers = [];
 let heroElements = [];
 let elementTargets = [];
 
-// Initialize Three.js scene
+let mouseX = 0, mouseY = 0;
+let targetX = 0, targetY = 0;
+
+// Entry point
 function init() {
-    // Scene setup
+    // Initialize scene and camera
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    // Configure renderer
     renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector('#hero-canvas'),
         alpha: true,
@@ -20,63 +24,48 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Get hero elements
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
+    // Capture hero text elements for animation
+    const hero = document.querySelector('.hero-content');
+    if (hero) {
         heroElements = [
-            heroContent.querySelector('h1'),
-            heroContent.querySelector('h2'),
-            heroContent.querySelector('p')
+            hero.querySelector('h1'),
+            hero.querySelector('h2'),
+            hero.querySelector('p')
         ];
-        
-        // Initialize targets array
+
         elementTargets = heroElements.map(() => ({ x: 0, y: 0 }));
 
-        // Add transition to each element
         heroElements.forEach(el => {
-            if (el) {
-                el.style.transition = 'transform 0.1s ease-out';
-            }
+            if (el) el.style.transition = 'transform 0.1s ease-out';
         });
     }
 
-    // Create multiple particle layers
-    createParticleLayers();
-    
-    // Create particle connections
-    createParticleConnections();
-
-    // Position camera further back to see more of the scene
-    camera.position.z = 5;
+    // Generate particles and lines
+    generateParticleLayers();
+    generateConnectionLines();
 
     // Event listeners
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('resize', handleResize);
 }
 
-function createParticleLayers() {
-    // Adjust the spread based on screen aspect ratio
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    const spreadX = Math.max(20 * aspectRatio, 20); // Increased spread
-    const spreadY = Math.max(20, 20); // Separate Y spread
+function generateParticleLayers() {
+    const aspect = window.innerWidth / window.innerHeight;
+    const spreadX = Math.max(20 * aspect, 20);
+    const spreadY = 20;
 
-    // Layer 1 - Far background, more particles, smaller size
-    const layer1 = createParticleLayer(3000, 6, 0.003, spreadX, spreadY);
-    layer1.position.z = -2;
-    particleLayers.push(layer1);
-    scene.add(layer1);
+    const configs = [
+        { count: 3000, depth: 6, size: 0.003, z: -2 },
+        { count: 2000, depth: 4, size: 0.005, z: 0 },
+        { count: 1000, depth: 2, size: 0.007, z: 2 }
+    ];
 
-    // Layer 2 - Middle layer, medium count and size
-    const layer2 = createParticleLayer(2000, 4, 0.005, spreadX, spreadY);
-    layer2.position.z = 0;
-    particleLayers.push(layer2);
-    scene.add(layer2);
-
-    // Layer 3 - Foreground, fewer particles, larger size
-    const layer3 = createParticleLayer(1000, 2, 0.007, spreadX, spreadY);
-    layer3.position.z = 2;
-    particleLayers.push(layer3);
-    scene.add(layer3);
+    configs.forEach(({ count, depth, size, z }) => {
+        const layer = createParticleLayer(count, depth, size, spreadX, spreadY);
+        layer.position.z = z;
+        particleLayers.push(layer);
+        scene.add(layer);
+    });
 }
 
 function createParticleLayer(count, depth, size, spreadX, spreadY) {
@@ -84,24 +73,22 @@ function createParticleLayer(count, depth, size, spreadX, spreadY) {
     const positions = new Float32Array(count * 3);
     const velocities = new Float32Array(count * 3);
 
-    for (let i = 0; i < count * 3; i += 3) {
-        // Random position across entire viewport
-        positions[i] = (Math.random() - 0.5) * spreadX;     // X
-        positions[i + 1] = (Math.random() - 0.5) * spreadY; // Y
-        positions[i + 2] = (Math.random() - 0.5) * depth;   // Z
+    for (let i = 0; i < positions.length; i += 3) {
+        positions[i] = (Math.random() - 0.5) * spreadX;
+        positions[i + 1] = (Math.random() - 0.5) * spreadY;
+        positions[i + 2] = (Math.random() - 0.5) * depth;
 
-        // Add random velocities for movement
-        velocities[i] = (Math.random() - 0.5) * 0.02;     // X velocity
-        velocities[i + 1] = (Math.random() - 0.5) * 0.02; // Y velocity
-        velocities[i + 2] = (Math.random() - 0.5) * 0.01; // Z velocity
+        velocities[i] = (Math.random() - 0.5) * 0.02;
+        velocities[i + 1] = (Math.random() - 0.5) * 0.02;
+        velocities[i + 2] = (Math.random() - 0.5) * 0.01;
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3));
 
     const material = new THREE.PointsMaterial({
-        size: size,
-        color: '#FFFFFF',
+        size,
+        color: '#fff',
         transparent: true,
         opacity: 0.8
     });
@@ -109,232 +96,174 @@ function createParticleLayer(count, depth, size, spreadX, spreadY) {
     return new THREE.Points(geometry, material);
 }
 
-function createParticleConnections() {
-    const lineGeometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(3000 * 3); // Preallocate space for lines
-    lineGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    
-    const linesMaterial = new THREE.LineBasicMaterial({
-        color: '#FFFFFF',
+function generateConnectionLines() {
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(3000 * 3);
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.LineBasicMaterial({
+        color: '#fff',
         transparent: true,
         opacity: 0.1
     });
-    
-    lines = new THREE.LineSegments(lineGeometry, linesMaterial);
+
+    lines = new THREE.LineSegments(geometry, material);
     scene.add(lines);
 }
 
-function updateParticleConnections() {
-    if (!lines || particleLayers.length === 0) return;
+function updateConnectionLines() {
+    if (!lines || !particleLayers.length) return;
 
     const positions = lines.geometry.attributes.position.array;
     const particles = particleLayers[1].geometry.attributes.position.array;
-    let connectionIndex = 0;
-    
-    // Track number of connections per particle
-    const connectionCounts = new Array(particles.length / 3).fill(0);
+    let index = 0;
+
+    const maxConnections = 5;
+    const connectionCount = new Array(particles.length / 3).fill(0);
 
     for (let i = 0; i < particles.length; i += 3) {
-        const x1 = particles[i];
-        const y1 = particles[i + 1];
-        const z1 = particles[i + 2];
-        const particleIndex1 = i / 3;
-
-        // Skip if this particle already has max connections
-        if (connectionCounts[particleIndex1] >= 5) continue;
+        if (connectionCount[i / 3] >= maxConnections) continue;
 
         for (let j = i + 3; j < particles.length; j += 3) {
-            if (connectionIndex >= positions.length - 6) break;
-            
-            const particleIndex2 = j / 3;
-            if (connectionCounts[particleIndex2] >= 5) continue;
+            if (index >= positions.length - 6) break;
+            if (connectionCount[j / 3] >= maxConnections) continue;
 
-            const x2 = particles[j];
-            const y2 = particles[j + 1];
-            const z2 = particles[j + 2];
+            const dx = particles[j] - particles[i];
+            const dy = particles[j + 1] - particles[i + 1];
+            const dz = particles[j + 2] - particles[i + 2];
 
-            // Calculate distance between particles
-            const distance = Math.sqrt(
-                Math.pow(x2 - x1, 2) +
-                Math.pow(y2 - y1, 2) +
-                Math.pow(z2 - z1, 2)
-            );
+            const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+            if (dist < 2) {
+                positions.set([
+                    particles[i], particles[i + 1], particles[i + 2],
+                    particles[j], particles[j + 1], particles[j + 2]
+                ], index);
 
-            // Connect if particles are close enough
-            if (distance < 2) {
-                positions[connectionIndex] = x1;
-                positions[connectionIndex + 1] = y1;
-                positions[connectionIndex + 2] = z1;
-                positions[connectionIndex + 3] = x2;
-                positions[connectionIndex + 4] = y2;
-                positions[connectionIndex + 5] = z2;
-                connectionIndex += 6;
+                connectionCount[i / 3]++;
+                connectionCount[j / 3]++;
+                index += 6;
 
-                connectionCounts[particleIndex1]++;
-                connectionCounts[particleIndex2]++;
-
-                if (connectionCounts[particleIndex1] >= 5) break;
+                if (connectionCount[i / 3] >= maxConnections) break;
             }
         }
     }
 
-    // Clear any unused connections
-    for (let i = connectionIndex; i < positions.length; i++) {
+    for (let i = index; i < positions.length; i++) {
         positions[i] = 0;
     }
 
     lines.geometry.attributes.position.needsUpdate = true;
 }
 
-// Mouse move handler with adjusted sensitivity
-function onMouseMove(event) {
+function handleMouseMove(event) {
     mouseX = (event.clientX - window.innerWidth / 2) / 200;
     mouseY = (event.clientY - window.innerHeight / 2) / 200;
 
-    // Update movement targets for each hero element
-    heroElements.forEach((el, index) => {
-        if (el) {
-            // Different movement ranges for each element
-            const moveRangeX = 25 - (index * 5); // Decreasing range: 25, 20, 15
-            const moveRangeY = 15 - (index * 3); // Decreasing range: 15, 12, 9
-            
-            elementTargets[index] = {
-                x: ((event.clientX / window.innerWidth) - 0.5) * moveRangeX,
-                y: ((event.clientY / window.innerHeight) - 0.5) * moveRangeY
-            };
-        }
+    heroElements.forEach((el, idx) => {
+        const xRange = 25 - idx * 5;
+        const yRange = 15 - idx * 3;
+
+        elementTargets[idx] = {
+            x: ((event.clientX / window.innerWidth) - 0.5) * xRange,
+            y: ((event.clientY / window.innerHeight) - 0.5) * yRange
+        };
     });
 }
 
-// Enhanced window resize handler
-function onWindowResize() {
-    // Update camera
+function handleResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    
-    // Update renderer
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    
-    // Recreate particles with new aspect ratio
-    particleLayers.forEach(layer => {
-        scene.remove(layer);
-    });
+
+    particleLayers.forEach(layer => scene.remove(layer));
     particleLayers = [];
-    
-    if(lines) {
-        scene.remove(lines);
-    }
-    
-    createParticleLayers();
-    createParticleConnections();
+
+    if (lines) scene.remove(lines);
+
+    generateParticleLayers();
+    generateConnectionLines();
 }
 
-// Animation loop with particle movement
+// === ANIMATION LOOP ===
 function animate() {
     requestAnimationFrame(animate);
 
-    // Smoother camera movement
     targetX = mouseX * 0.4;
     targetY = mouseY * 0.4;
     camera.position.x += (targetX - camera.position.x) * 0.03;
     camera.position.y += (targetY - camera.position.y) * 0.03;
 
-    // Update hero elements positions
-    heroElements.forEach((el, index) => {
+    heroElements.forEach((el, i) => {
         if (el) {
-            const target = elementTargets[index];
+            const target = elementTargets[i];
             el.style.transform = `translate(${target.x}px, ${target.y}px)`;
         }
     });
 
-    // Update particle positions with velocities
-    particleLayers.forEach((layer, index) => {
+    particleLayers.forEach((layer, i) => {
         const positions = layer.geometry.attributes.position.array;
         const velocities = layer.geometry.attributes.velocity.array;
-        const spread = index === 0 ? 20 : index === 1 ? 15 : 10;
-        
-        for (let i = 0; i < positions.length; i += 3) {
-            positions[i] += velocities[i];
-            positions[i + 1] += velocities[i + 1];
-            positions[i + 2] += velocities[i + 2];
-            
-            if (positions[i] > spread) positions[i] = -spread;
-            if (positions[i] < -spread) positions[i] = spread;
-            if (positions[i + 1] > spread) positions[i + 1] = -spread;
-            if (positions[i + 1] < -spread) positions[i + 1] = spread;
-            if (positions[i + 2] > spread) positions[i + 2] = -spread;
-            if (positions[i + 2] < -spread) positions[i + 2] = spread;
+        const spread = [20, 15, 10][i];
+
+        for (let j = 0; j < positions.length; j += 3) {
+            positions[j] += velocities[j];
+            positions[j + 1] += velocities[j + 1];
+            positions[j + 2] += velocities[j + 2];
+
+            if (positions[j] > spread) positions[j] = -spread;
+            if (positions[j] < -spread) positions[j] = spread;
+            if (positions[j + 1] > spread) positions[j + 1] = -spread;
+            if (positions[j + 1] < -spread) positions[j + 1] = spread;
+            if (positions[j + 2] > spread) positions[j + 2] = -spread;
+            if (positions[j + 2] < -spread) positions[j + 2] = spread;
         }
-        
+
         layer.geometry.attributes.position.needsUpdate = true;
-        layer.rotation.x += 0.0003 * (index + 1);
-        layer.rotation.y += 0.0003 * (index + 1);
+        layer.rotation.x += 0.0003 * (i + 1);
+        layer.rotation.y += 0.0003 * (i + 1);
     });
 
-    // Update dynamic connections
-    updateParticleConnections();
-
+    updateConnectionLines();
     renderer.render(scene, camera);
 }
 
-// Smooth scroll for navigation
+// === SMOOTH SCROLL & FORM SUBMISSION ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', e => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(anchor.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
 
-// Loading screen
 window.addEventListener('load', () => {
-    const loadingScreen = document.querySelector('.loading-screen');
-    loadingScreen.style.opacity = '0';
-    setTimeout(() => {
-        loadingScreen.style.display = 'none';
-    }, 500);
+    const loader = document.querySelector('.loading-screen');
+    loader.style.opacity = '0';
+    setTimeout(() => loader.style.display = 'none', 500);
 });
 
-// Form submission handling
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+document.getElementById('contactForm').addEventListener('submit', e => {
     e.preventDefault();
-    
     const form = e.target;
-    const formData = new FormData(form);
-    
+    const data = new FormData(form);
+
     fetch(form.action, {
         method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
+        body: data,
+        headers: { 'Accept': 'application/json' }
+    }).then(response => {
         if (response.ok) {
-            // Show success message
-            const successMessage = document.getElementById('successMessage');
-            successMessage.style.display = 'block';
-            
-            // Clear form
+            document.getElementById('successMessage').style.display = 'block';
             form.reset();
-            
-            // Hide success message after 5 seconds
             setTimeout(() => {
-                successMessage.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'none';
             }, 5000);
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    }).catch(console.error);
 });
 
-// Initialize everything
+// === LAUNCH ===
 init();
 animate();
