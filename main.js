@@ -1,20 +1,22 @@
-// === THREE.JS SCENE (subtle, performant) ===
-let scene, camera, renderer, lines = null;
-let particleLayers = [];
-let heroEls = [];
-let elTargets = [];
-let mouse = { x: 0, y: 0 }, target = { x: 0, y: 0 };
+// === MINIMAL PARTICLE SYSTEM (Apple-style subtlety) ===
+let scene, camera, renderer, particles;
+let mouse = { x: 0, y: 0 };
+let target = { x: 0, y: 0 };
 
 function init() {
+  // Setup scene
   scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0xffffff, 5, 15);
+
   camera = new THREE.PerspectiveCamera(
-    70,
+    75,
     window.innerWidth / window.innerHeight,
     0.1,
     1000
   );
-  camera.position.z = 5;
+  camera.position.z = 8;
 
+  // Renderer with transparency
   renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector("#hero-canvas"),
     alpha: true,
@@ -23,301 +25,273 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // Hero elements motion
-  const hero = document.querySelector(".hero-content");
-  if (hero) {
-    heroEls = [
-      hero.querySelector("h1"),
-      hero.querySelector("h2"),
-      hero.querySelector("p")
-    ].filter(Boolean);
+  createParticles();
 
-    elTargets = heroEls.map(() => ({ x: 0, y: 0 }));
-    heroEls.forEach(el => (el.style.transition = "transform 80ms ease-out"));
-  }
-
-  generateParticleLayers();
-  generateConnectionLines();
-
+  // Event listeners
   window.addEventListener("mousemove", onMouseMove);
   window.addEventListener("resize", onResize);
 
-  // Respect prefers-reduced-motion
-  const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (media.matches) {
-    particleLayers.forEach(layer => {
-      layer.rotation.x = 0;
-      layer.rotation.y = 0;
-    });
+  // Respect motion preferences
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (prefersReducedMotion.matches) {
+    particles.rotation.set(0, 0, 0);
   }
 }
 
-// === PARTICLE GENERATION ===
-function generateParticleLayers() {
-  const aspect = window.innerWidth / window.innerHeight;
-  const spreadX = Math.max(18 * aspect, 18);
-  const spreadY = 18;
-
-  const configs = [
-    { count: 900, depth: 3, size: 0.006, z: -1.5, opacity: 0.45 },
-    { count: 650, depth: 2, size: 0.008, z: 0, opacity: 0.55 },
-    { count: 420, depth: 1.6, size: 0.01, z: 1.2, opacity: 0.65 }
-  ];
-
-  particleLayers = [];
-  configs.forEach(({ count, depth, size, z, opacity }, i) => {
-    const layer = createParticleLayer(count, depth, size, spreadX, spreadY, opacity);
-    layer.position.z = z;
-    layer.userData.speed = 0.00025 * (i + 1);
-    scene.add(layer);
-    particleLayers.push(layer);
-  });
-}
-
-function createParticleLayer(count, depth, size, spreadX, spreadY, opacity) {
+// === PARTICLE CREATION ===
+function createParticles() {
   const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(count * 3);
-  const velocities = new Float32Array(count * 3);
+  const particleCount = 1200;
+  const positions = new Float32Array(particleCount * 3);
+  const velocities = new Float32Array(particleCount * 3);
 
-  for (let i = 0; i < positions.length; i += 3) {
-    positions[i] = (Math.random() - 0.5) * spreadX;
-    positions[i + 1] = (Math.random() - 0.5) * spreadY;
-    positions[i + 2] = (Math.random() - 0.5) * depth;
+  // Create particle positions in a sphere
+  for (let i = 0; i < particleCount * 3; i += 3) {
+    const radius = 5 + Math.random() * 8;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(Math.random() * 2 - 1);
 
-    velocities[i] = (Math.random() - 0.5) * 0.01;
-    velocities[i + 1] = (Math.random() - 0.5) * 0.01;
-    velocities[i + 2] = (Math.random() - 0.5) * 0.006;
+    positions[i] = radius * Math.sin(phi) * Math.cos(theta);
+    positions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+    positions[i + 2] = radius * Math.cos(phi);
+
+    velocities[i] = (Math.random() - 0.5) * 0.002;
+    velocities[i + 1] = (Math.random() - 0.5) * 0.002;
+    velocities[i + 2] = (Math.random() - 0.5) * 0.002;
   }
 
   geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   geometry.setAttribute("velocity", new THREE.BufferAttribute(velocities, 3));
 
+  // Minimal material
   const material = new THREE.PointsMaterial({
-    size,
-    color: "#E9ECF4",
+    size: 0.05,
+    color: 0x1d1d1f,
     transparent: true,
-    opacity
+    opacity: 0.6,
+    sizeAttenuation: true
   });
 
-  return new THREE.Points(geometry, material);
+  particles = new THREE.Points(geometry, material);
+  scene.add(particles);
 }
 
-// === CONNECTION LINES ===
-function generateConnectionLines() {
-  if (lines) {
-    scene.remove(lines);
-    lines.geometry.dispose();
-    lines.material.dispose();
-  }
-
-  const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(1800);
-  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-
-  const material = new THREE.LineBasicMaterial({
-    color: "#E9ECF4",
-    transparent: true,
-    opacity: 0.08
-  });
-
-  lines = new THREE.LineSegments(geometry, material);
-  scene.add(lines);
-}
-
-function updateConnectionLines() {
-  if (!lines || !particleLayers.length) return;
-
-  const linePos = lines.geometry.attributes.position.array;
-  const particles = particleLayers[1].geometry.attributes.position.array;
-
-  let index = 0;
-  const particleCount = particles.length / 3;
-
-  const connectionCount = new Uint8Array(particleCount);
-  const maxConnections = 3;
-
-  for (let i = 0; i < particles.length; i += 3) {
-    const iIndex = i / 3;
-    if (connectionCount[iIndex] >= maxConnections) continue;
-
-    for (let j = i + 3; j < particles.length; j += 3) {
-      if (index >= linePos.length - 6) break;
-
-      const jIndex = j / 3;
-      if (connectionCount[jIndex] >= maxConnections) continue;
-
-      const dx = particles[j] - particles[i];
-      const dy = particles[j + 1] - particles[i + 1];
-      const dz = particles[j + 2] - particles[i + 2];
-
-      if (Math.hypot(dx, dy, dz) < 1.5) {
-        linePos[index++] = particles[i];
-        linePos[index++] = particles[i + 1];
-        linePos[index++] = particles[i + 2];
-
-        linePos[index++] = particles[j];
-        linePos[index++] = particles[j + 1];
-        linePos[index++] = particles[j + 2];
-
-        connectionCount[iIndex]++;
-        connectionCount[jIndex]++;
-
-        if (connectionCount[iIndex] >= maxConnections) break;
-      }
-    }
-  }
-
-  linePos.fill(0, index);
-  lines.geometry.attributes.position.needsUpdate = true;
-}
-
-// === EVENTS ===
-function onMouseMove(e) {
-  mouse.x = (e.clientX - window.innerWidth / 2) / 240;
-  mouse.y = (e.clientY - window.innerHeight / 2) / 240;
-
-  heroEls.forEach((el, idx) => {
-    const xRange = 20 - idx * 5;
-    const yRange = 12 - idx * 3;
-
-    elTargets[idx] = {
-      x: ((e.clientX / window.innerWidth) - 0.5) * xRange,
-      y: ((e.clientY / window.innerHeight) - 0.5) * yRange
-    };
-  });
+// === EVENT HANDLERS ===
+function onMouseMove(event) {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 }
 
 function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-
-  particleLayers.forEach(layer => {
-    scene.remove(layer);
-    layer.geometry.dispose();
-    layer.material.dispose();
-  });
-
-  generateParticleLayers();
-  generateConnectionLines();
 }
 
 // === ANIMATION LOOP ===
 function animate() {
   requestAnimationFrame(animate);
 
-  target.x = mouse.x * 0.4;
-  target.y = mouse.y * 0.4;
-  camera.position.x += (target.x - camera.position.x) * 0.035;
-  camera.position.y += (target.y - camera.position.y) * 0.035;
+  // Smooth camera movement
+  target.x = mouse.x * 0.3;
+  target.y = mouse.y * 0.3;
 
-  heroEls.forEach((el, i) => {
-    const t = elTargets[i];
-    if (t) el.style.transform = `translate3d(${t.x}px, ${t.y}px, 0)`;
-  });
+  camera.position.x += (target.x - camera.position.x) * 0.02;
+  camera.position.y += (target.y - camera.position.y) * 0.02;
+  camera.lookAt(scene.position);
 
-  particleLayers.forEach((layer, idx) => {
-    const positions = layer.geometry.attributes.position.array;
-    const velocities = layer.geometry.attributes.velocity.array;
-    const spread = [16, 13, 10][idx];
+  // Gentle rotation
+  if (particles) {
+    particles.rotation.y += 0.0005;
+    particles.rotation.x += 0.0002;
+
+    // Update particle positions
+    const positions = particles.geometry.attributes.position.array;
+    const velocities = particles.geometry.attributes.velocity.array;
 
     for (let i = 0; i < positions.length; i += 3) {
-      positions[i] += velocities[i] * 0.65;
-      positions[i + 1] += velocities[i + 1] * 0.65;
-      positions[i + 2] += velocities[i + 2] * 0.65;
+      positions[i] += velocities[i];
+      positions[i + 1] += velocities[i + 1];
+      positions[i + 2] += velocities[i + 2];
 
-      const s = spread;
-      if (positions[i] > s) positions[i] = -s;
-      else if (positions[i] < -s) positions[i] = s;
+      // Boundary check
+      const x = positions[i];
+      const y = positions[i + 1];
+      const z = positions[i + 2];
+      const distance = Math.sqrt(x * x + y * y + z * z);
 
-      if (positions[i + 1] > s) positions[i + 1] = -s;
-      else if (positions[i + 1] < -s) positions[i + 1] = s;
-
-      if (positions[i + 2] > s) positions[i + 2] = -s;
-      else if (positions[i + 2] < -s) positions[i + 2] = s;
+      if (distance > 12 || distance < 3) {
+        velocities[i] *= -1;
+        velocities[i + 1] *= -1;
+        velocities[i + 2] *= -1;
+      }
     }
 
-    layer.geometry.attributes.position.needsUpdate = true;
-    layer.rotation.x += layer.userData.speed;
-    layer.rotation.y += layer.userData.speed;
-  });
+    particles.geometry.attributes.position.needsUpdate = true;
+  }
 
-  updateConnectionLines();
   renderer.render(scene, camera);
 }
 
-// === SCROLL ANIMATIONS ===
+// === SCROLL ANIMATIONS (Intersection Observer) ===
 function initScrollAnimations() {
   const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    rootMargin: "0px 0px -80px 0px"
   };
 
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
+        // Stagger animation
+        setTimeout(() => {
+          entry.target.classList.add("animate-in");
+        }, index * 100);
       }
     });
   }, observerOptions);
 
-  // Observe all animatable elements
-  const animatableElements = document.querySelectorAll(
-    '.project-card, .experience-card, .cert-card, .about-skills, .about-coursework'
+  // Observe all cards
+  const cards = document.querySelectorAll(
+    ".project-card, .experience-card, .cert-card, .about-skills, .about-coursework"
   );
   
-  animatableElements.forEach(el => observer.observe(el));
+  cards.forEach(card => observer.observe(card));
 }
 
-// === Smooth Scroll ===
+// === NAVBAR SCROLL EFFECT ===
+function initNavbarScroll() {
+  const navbar = document.querySelector(".navbar");
+  let lastScroll = 0;
+
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+
+    lastScroll = currentScroll;
+  });
+}
+
+// === SMOOTH SCROLL ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", e => {
-    const target = document.querySelector(anchor.getAttribute("href"));
-    if (target) {
+  anchor.addEventListener("click", function(e) {
+    const targetId = this.getAttribute("href");
+    const targetElement = document.querySelector(targetId);
+    
+    if (targetElement) {
       e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      
+      const offsetTop = targetElement.offsetTop - 60;
+      
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth"
+      });
     }
   });
 });
 
-// === Loader ===
+// === PAGE LOADER ===
 window.addEventListener("load", () => {
   const loader = document.querySelector(".loading-screen");
-  if (loader) {
-    loader.style.opacity = "0";
-    setTimeout(() => {
-      loader.style.display = "none";
-      initScrollAnimations();
-    }, 450);
-  }
+  
+  setTimeout(() => {
+    if (loader) {
+      loader.style.opacity = "0";
+      setTimeout(() => {
+        loader.style.display = "none";
+        initScrollAnimations();
+      }, 400);
+    }
+  }, 600);
 });
 
-// === Contact Form ===
-const form = document.getElementById("contactForm");
-if (form) {
-  form.addEventListener("submit", e => {
+// === CONTACT FORM ===
+const contactForm = document.getElementById("contactForm");
+if (contactForm) {
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const data = new FormData(form);
+    
+    const formData = new FormData(contactForm);
+    const button = contactForm.querySelector("button");
+    const originalText = button.textContent;
+    
+    button.textContent = "Sending...";
+    button.disabled = true;
 
-    fetch(form.action, {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" }
-    })
-      .then(res => {
-        if (res.ok) {
-          const success = document.getElementById("successMessage");
-          if (success) {
-            success.style.display = "block";
-            form.reset();
-            setTimeout(() => (success.style.display = "none"), 4000);
-          }
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json"
         }
-      })
-      .catch(console.error);
+      });
+
+      if (response.ok) {
+        const successMessage = document.getElementById("successMessage");
+        if (successMessage) {
+          successMessage.style.display = "block";
+          contactForm.reset();
+          
+          setTimeout(() => {
+            successMessage.style.display = "none";
+          }, 5000);
+        }
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("There was an error sending your message. Please try again.");
+    } finally {
+      button.textContent = originalText;
+      button.disabled = false;
+    }
   });
 }
 
-// === Start ===
-init();
-animate();
+// === PARALLAX EFFECT FOR SECTIONS ===
+function initParallax() {
+  const sections = document.querySelectorAll("section");
+  
+  window.addEventListener("scroll", () => {
+    const scrolled = window.pageYOffset;
+    
+    sections.forEach(section => {
+      const speed = 0.5;
+      const yPos = -(scrolled * speed);
+      const rect = section.getBoundingClientRect();
+      
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        section.style.transform = `translateY(${yPos * 0.1}px)`;
+      }
+    });
+  });
+}
+
+// === INITIALIZE EVERYTHING ===
+document.addEventListener("DOMContentLoaded", () => {
+  init();
+  animate();
+  initNavbarScroll();
+  
+  // Don't init parallax if user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (!prefersReducedMotion.matches) {
+    // initParallax(); // Commented out for better performance
+  }
+});
+
+// === KEYBOARD NAVIGATION IMPROVEMENTS ===
+document.addEventListener("keydown", (e) => {
+  // Add keyboard shortcuts if needed
+  if (e.key === "Escape") {
+    // Close any modals or overlays
+  }
+});
