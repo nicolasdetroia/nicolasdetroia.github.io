@@ -111,7 +111,7 @@ function generateConnectionLines() {
   }
 
   const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(1800); // cleaner lines
+  const positions = new Float32Array(1800);
   geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
   const material = new THREE.LineBasicMaterial({
@@ -167,7 +167,6 @@ function updateConnectionLines() {
     }
   }
 
-  // Clear unused segments
   linePos.fill(0, index);
   lines.geometry.attributes.position.needsUpdate = true;
 }
@@ -193,7 +192,6 @@ function onResize() {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // Rebuild particles + lines cleanly
   particleLayers.forEach(layer => {
     scene.remove(layer);
     layer.geometry.dispose();
@@ -208,19 +206,16 @@ function onResize() {
 function animate() {
   requestAnimationFrame(animate);
 
-  // Camera smoothing
   target.x = mouse.x * 0.4;
   target.y = mouse.y * 0.4;
   camera.position.x += (target.x - camera.position.x) * 0.035;
   camera.position.y += (target.y - camera.position.y) * 0.035;
 
-  // Hero element float
   heroEls.forEach((el, i) => {
     const t = elTargets[i];
     if (t) el.style.transform = `translate3d(${t.x}px, ${t.y}px, 0)`;
   });
 
-  // Particle movement
   particleLayers.forEach((layer, idx) => {
     const positions = layer.geometry.attributes.position.array;
     const velocities = layer.geometry.attributes.velocity.array;
@@ -251,6 +246,29 @@ function animate() {
   renderer.render(scene, camera);
 }
 
+// === SCROLL ANIMATIONS ===
+function initScrollAnimations() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all animatable elements
+  const animatableElements = document.querySelectorAll(
+    '.project-card, .experience-card, .cert-card, .about-skills, .about-coursework'
+  );
+  
+  animatableElements.forEach(el => observer.observe(el));
+}
+
 // === Smooth Scroll ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", e => {
@@ -267,7 +285,10 @@ window.addEventListener("load", () => {
   const loader = document.querySelector(".loading-screen");
   if (loader) {
     loader.style.opacity = "0";
-    setTimeout(() => (loader.style.display = "none"), 450);
+    setTimeout(() => {
+      loader.style.display = "none";
+      initScrollAnimations();
+    }, 450);
   }
 });
 
